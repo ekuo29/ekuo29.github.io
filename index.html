@@ -27,6 +27,7 @@
   --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
   --accent:#7cc3c4; --accent-soft:#1d2e31; color-scheme:dark;
 }
+html{scroll-behavior:smooth; scroll-padding-top:88px}
 *{box-sizing:border-box}
 body{
   background:var(--bg); color:var(--fg); font-family:var(--body);
@@ -36,6 +37,16 @@ body{
   padding-block:48px 64px;
 }
 .wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:40px}
+.topbar{
+  position:sticky; top:12px; z-index:20; display:flex; align-items:center; justify-content:space-between; gap:12px;
+  padding:9px 10px; border:1px solid var(--line); border-radius:10px; background:var(--surface);
+  box-shadow:0 8px 30px rgba(23,32,42,.07);
+}
+.brand{font-family:var(--display); font-weight:600; color:var(--fg); text-decoration:none; padding:4px 8px}
+.navlinks{display:flex; align-items:center; gap:2px}
+.navlinks a{color:var(--muted); text-decoration:none; font-size:.83rem; font-weight:500; padding:6px 8px; border-radius:6px}
+.navlinks a:hover,.navlinks a:focus-visible{color:var(--accent); background:var(--accent-soft); outline:none}
+.theme-toggle{white-space:nowrap; padding:7px 10px; font-size:.8rem}
 header{display:flex; flex-direction:column; gap:14px; padding-bottom:28px; border-bottom:1px solid var(--line)}
 h1{font-family:var(--display); font-weight:600; font-size:clamp(2.2rem, 6vw, 3.1rem); line-height:1.05; margin:0; letter-spacing:-0.01em; text-wrap:balance}
 .role{margin:0; color:var(--muted); font-size:1.02rem; max-width:62ch}
@@ -76,6 +87,8 @@ p{margin:0}
 .proj p{color:var(--muted); font-size:.93rem}
 .proj a{color:var(--accent); font-size:.88rem; font-weight:500; text-decoration:none; margin-top:auto}
 .proj a:hover{text-decoration:underline}
+.contact-panel{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:20px; display:flex; flex-direction:column; gap:14px}
+.contact-panel p{color:var(--muted); max-width:62ch}
 .skills{display:grid; grid-template-columns:max-content 1fr; gap:8px 20px}
 .skills dt{font-weight:600}
 .skills dd{margin:0; color:var(--muted); min-width:0}
@@ -84,6 +97,8 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
   body{padding-block:32px 48px}
   .entry{grid-template-columns:1fr}
   .when{text-align:left}
+  .topbar{top:8px}
+  .navlinks{display:none}
   .skills{grid-template-columns:1fr; gap:2px}
   .skills dd{margin-bottom:10px}
 }
@@ -92,9 +107,20 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
 }
 </style>
 </head>
-<body>
+<body id="top">
 
 <div class="wrap">
+  <nav class="topbar" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="Back to top">EK</a>
+    <div class="navlinks">
+      <a href="#experience">Experience</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="btn theme-toggle" id="theme-toggle" type="button" aria-label="Toggle color theme">Dark mode</button>
+  </nav>
   <header>
     <h1>Eileen Kuo</h1>
     <p class="role"><strong>Master of Finance candidate</strong> at McMaster's DeGroote School of Business (Dec 2026) and <strong>CFA Level II candidate</strong>, interested in helping companies make strategic and financing decisions.</p>
@@ -111,12 +137,12 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </div>
   </header>
 
-  <section>
+  <section id="summary">
     <h2>Summary</h2>
     <p class="summary">Master of Finance student and CFA Level II candidate with experience in financial modeling, valuation, and due diligence. I build DCF, comparable company, and three-statement models, research industry dynamics, and use AI tools to work more efficiently and automate analysis.</p>
   </section>
 
-  <section>
+  <section id="experience">
     <h2>Experience</h2>
     <div class="list">
       <div class="entry">
@@ -156,7 +182,7 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </div>
   </section>
 
-  <section>
+  <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
       <div class="proj">
@@ -183,18 +209,30 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <span class="tag">Credit · Python</span>
         <h3>Credit card default prediction</h3>
         <p>Modeled default risk for 27,000+ borrowers with a cost-based decision threshold.</p>
-        <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
+        <a href="https://github.com/ekuo29/adaboost_credit_default_cost_optimization" target="_blank" rel="noopener">View project on GitHub →</a>
       </div>
       <div class="proj">
         <span class="tag">Funds · Python</span>
         <h3>Mutual fund manager performance</h3>
         <p>Analyzed 540 fund observations to identify drivers of manager excess returns and wrote a hiring recommendation.</p>
-        <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
+        <a href="https://github.com/ekuo29/mutual-fund-manager-performance" target="_blank" rel="noopener">View project on GitHub →</a>
+      </div>
+      <div class="proj">
+        <span class="tag">Forecasting · Python</span>
+        <h3>NVIDIA volatility forecasting</h3>
+        <p>Built and tuned RNN models to forecast next-day realized volatility using 2018–2025 data, moving-average volatility, and VIX features.</p>
+        <a href="https://github.com/ekuo29/rnn_realized_volatility_forecasting" target="_blank" rel="noopener">View project on GitHub →</a>
+      </div>
+      <div class="proj">
+        <span class="tag">Analytics · Stata / Excel</span>
+        <h3>Sales profitability and conversion</h3>
+        <p>Analyzed 1,000 historical sales leads to compare product and regional profitability, test conversion drivers, and develop business recommendations.</p>
+        <a href="https://github.com/ekuo29/sales_profitability_and_conversion_analysis" target="_blank" rel="noopener">View project on GitHub →</a>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="education">
     <h2>Education</h2>
     <div class="list">
       <div class="entry">
@@ -216,7 +254,7 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </div>
   </section>
 
-  <section>
+  <section id="skills">
     <h2>Skills</h2>
     <dl class="skills">
       <dt>Technical</dt><dd>Excel, PowerPoint, Word, Bloomberg Terminal, SQL, R, Python (basic), AI tools (Claude, ChatGPT)</dd>
@@ -227,10 +265,40 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </dl>
   </section>
 
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-panel">
+      <p>I am interested in financial modeling, credit, investment research, and transaction-related opportunities. Email or LinkedIn is the best way to reach me.</p>
+      <div class="links">
+        <a class="btn primary" href="mailto:kuoi1@mcmaster.ca"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Email me</a>
+        <a class="btn" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> Connect on LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
   <footer>Updated November 2026</footer>
 </div>
 
 <script>
+(function(){
+  var root = document.documentElement;
+  var btn = document.getElementById('theme-toggle');
+  var saved = null;
+  try { saved = localStorage.getItem('theme'); } catch(e) {}
+  function currentTheme(){
+    if(root.dataset.theme) return root.dataset.theme;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  }
+  function applyTheme(theme){
+    root.dataset.theme = theme;
+    btn.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+    try { localStorage.setItem('theme', theme); } catch(e) {}
+  }
+  if(saved === 'light' || saved === 'dark') applyTheme(saved);
+  else btn.textContent = currentTheme() === 'dark' ? 'Light mode' : 'Dark mode';
+  btn.addEventListener('click', function(){ applyTheme(currentTheme() === 'dark' ? 'light' : 'dark'); });
+})();
+
 document.getElementById('copy-email').addEventListener('click', function(){
   var btn = this, text = document.getElementById('email').textContent;
   function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copy email'; }, 1800); }
