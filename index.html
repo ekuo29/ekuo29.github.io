@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Eileen Kuo</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: a single reading column, like a well-set term sheet; dates sit in a right-aligned ledger column. */
+:root{
+  --bg:#f6f7f8; --surface:#ffffff; --fg:#17202a; --muted:#5b6672; --line:#dde2e7;
+  --accent:#1f5f63; --accent-soft:#e3eeee;
+  --display:"Fraunces", Georgia, "Times New Roman", serif;
+  --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
+    --accent:#7cc3c4; --accent-soft:#1d2e31; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
+  --accent:#7cc3c4; --accent-soft:#1d2e31; color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{
+  background:var(--bg); color:var(--fg); font-family:var(--body);
+  font-size:15.5px; line-height:1.6;
+  padding-left:max(16px, env(safe-area-inset-left, 0px));
+  padding-right:max(16px, env(safe-area-inset-right, 0px));
+  padding-block:48px 64px;
+}
+.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:40px}
+header{display:flex; flex-direction:column; gap:14px; padding-bottom:28px; border-bottom:1px solid var(--line)}
+h1{font-family:var(--display); font-weight:600; font-size:clamp(2.2rem, 6vw, 3.1rem); line-height:1.05; margin:0; letter-spacing:-0.01em; text-wrap:balance}
+.role{margin:0; color:var(--muted); font-size:1.02rem; max-width:62ch}
+.role strong{color:var(--fg); font-weight:600}
+.links{display:flex; flex-wrap:wrap; gap:10px; margin-top:4px}
+.btn{
+  display:inline-flex; align-items:center; gap:8px; padding:9px 14px; border-radius:8px;
+  border:1px solid var(--line); background:var(--surface); color:var(--fg);
+  text-decoration:none; font-weight:500; font-size:.92rem; cursor:pointer; font-family:inherit;
+}
+.btn:hover{border-color:var(--accent); color:var(--accent)}
+.btn.primary{background:var(--accent); border-color:var(--accent); color:var(--bg)}
+.btn.primary:hover{color:var(--bg); filter:brightness(1.08)}
+.btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.contact{font-family:var(--mono); font-size:.85rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 18px}
+.contact span{user-select:all}
+section{display:flex; flex-direction:column; gap:18px}
+h2{
+  font-family:var(--mono); font-weight:500; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--accent); margin:0; display:flex; align-items:center; gap:12px;
+}
+h2::after{content:""; flex:1; height:1px; background:var(--line)}
+p{margin:0}
+.summary{max-width:65ch}
+.entry{display:grid; grid-template-columns:1fr auto; gap:2px 16px}
+.entry > *{min-width:0}
+.org{font-weight:600}
+.where{color:var(--muted); font-size:.92rem}
+.when{font-family:var(--mono); font-size:.82rem; color:var(--muted); text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap}
+.title{font-style:italic; color:var(--muted)}
+.entry ul{grid-column:1 / -1; margin:6px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:4px}
+.entry li::marker{color:var(--accent)}
+.list{display:flex; flex-direction:column; gap:22px}
+.projects{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px}
+.proj{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px; min-width:0}
+.proj h3{margin:0; font-size:1rem; font-weight:600}
+.tag{font-family:var(--mono); font-size:.72rem; letter-spacing:.06em; text-transform:uppercase; color:var(--accent); background:var(--accent-soft); padding:2px 8px; border-radius:999px; align-self:flex-start}
+.proj p{color:var(--muted); font-size:.93rem}
+.proj a{color:var(--accent); font-size:.88rem; font-weight:500; text-decoration:none; margin-top:auto}
+.proj a:hover{text-decoration:underline}
+.skills{display:grid; grid-template-columns:max-content 1fr; gap:8px 20px}
+.skills dt{font-weight:600}
+.skills dd{margin:0; color:var(--muted); min-width:0}
+footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); padding-top:18px}
+@media (max-width:560px){
+  body{padding-block:32px 48px}
+  .entry{grid-template-columns:1fr}
+  .when{text-align:left}
+  .skills{grid-template-columns:1fr; gap:2px}
+  .skills dd{margin-bottom:10px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .btn{transition:border-color .15s, color .15s, filter .15s}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Eileen Kuo</h1>
+    <p class="role"><strong>Master of Finance candidate</strong> at McMaster's DeGroote School of Business (Dec 2026) and <strong>CFA Level II candidate</strong>, focused on investment banking, M&amp;A, and valuation.</p>
+    <div class="links">
+      <a class="btn primary" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
+      <a class="btn" href="https://github.com/ekuo29" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
+      <button class="btn" id="copy-email" type="button">Copy email</button>
+    </div>
+    <div class="contact">
+      <span id="email">kuoi1@mcmaster.ca</span>
+      <span>437-988-3679</span>
+      <span>Hamilton, ON</span>
+      <span>linkedin.com/in/eileen-kuo</span>
+      <span>github.com/ekuo29</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Summary</h2>
+    <p class="summary">Master of Finance student and CFA Level II candidate with experience in financial modeling, valuation, and due diligence. I build DCF, comparable company, and three-statement models, research industry dynamics, and use AI tools to work more efficiently and automate analysis.</p>
+  </section>
+
+  <section>
+    <h2>Experience</h2>
+    <div class="list">
+      <div class="entry">
+        <div><span class="org">Vosyn Inc.</span> <span class="where">· Toronto, ON</span></div>
+        <div class="when">Sep 2026 – Present</div>
+        <div class="title">Financial Modeling Intern</div>
+        <ul>
+          <li>Built driver-based models and a comparable-company valuation to assess a pre-IPO AI company, presenting findings to senior management.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><span class="org">Allen H. Gould Trading Floor</span> <span class="where">· Hamilton, ON</span></div>
+        <div class="when">Oct 2026 – Present</div>
+        <div class="title">Trading Floor Coordinator</div>
+        <ul>
+          <li>Supported student and faculty research with Bloomberg Terminal data on equities, company financials, and fixed income.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><span class="org">Nour Private Wealth Management</span> <span class="where">· Oakville, ON</span></div>
+        <div class="when">Oct 2025 – Feb 2026</div>
+        <div class="title">Investment Analyst Intern</div>
+        <ul>
+          <li>Conducted due diligence, equity research, and asset-mix analysis to support investment recommendations aligned with client objectives.</li>
+          <li>Performed financial statement analysis and built DCF and three-statement projection models, using scenario and sensitivity analyses to evaluate intrinsic value.</li>
+          <li>Prepared investment summaries, performance reports, and dashboards for weekly strategy meetings.</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><span class="org">Dur Chyi Industries Co., Ltd.</span> <span class="where">· Kaohsiung, Taiwan</span></div>
+        <div class="when">May 2024 – Sep 2024</div>
+        <div class="title">Finance Intern</div>
+        <ul>
+          <li>Managed 30+ key client relationships through calls and emails, maintaining 95% client satisfaction.</li>
+          <li>Analyzed procurement costs across 20+ suppliers and reconciled 200+ monthly ERP transactions, supporting negotiations that cut supplier expenses by 10%.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Projects</h2>
+    <div class="projects">
+      <div class="proj">
+        <span class="tag">Equity research</span>
+        <h3>Chemtrade Logistics (TSX: CHE.UN)</h3>
+        <p>Initiated coverage with a Buy rating, using DCF, comparable company, and dividend discount valuation supported by industry research.</p>
+      </div>
+      <div class="proj">
+        <span class="tag">LBO · in progress</span>
+        <h3>Cars.com buyout model</h3>
+        <p>Building an LBO model with operating projections, a debt schedule, and returns (IRR/MOIC) analysis.</p>
+      </div>
+      <div class="proj">
+        <span class="tag">Venture · in progress</span>
+        <h3>Health tech startup valuation</h3>
+        <p>Building financial projections and a valuation for an early-stage health tech startup, working directly with its founder.</p>
+      </div>
+      <div class="proj">
+        <span class="tag">Data · SQL</span>
+        <h3>Real estate platform database</h3>
+        <p>Built a Microsoft SQL Server database for a real estate platform, enforcing data integrity and writing queries for management reports.</p>
+      </div>
+      <div class="proj">
+        <span class="tag">Credit · Python</span>
+        <h3>Credit card default prediction</h3>
+        <p>Modeled default risk for 27,000+ borrowers with a cost-based decision threshold.</p>
+        <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="proj">
+        <span class="tag">Funds · Python</span>
+        <h3>Mutual fund manager performance</h3>
+        <p>Analyzed 540 fund observations to identify drivers of manager excess returns and wrote a hiring recommendation.</p>
+        <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="list">
+      <div class="entry">
+        <div><span class="org">McMaster University, DeGroote School of Business</span></div>
+        <div class="when">Expected Dec 2026</div>
+        <div class="title">Master of Finance · GPA 3.7/4.0</div>
+        <ul>
+          <li>Coursework: Financial Modeling, M&amp;A, Fixed Income, Financial Econometrics, VC &amp; PE</li>
+        </ul>
+      </div>
+      <div class="entry">
+        <div><span class="org">McMaster University</span></div>
+        <div class="when">Sep 2020 – Jun 2024</div>
+        <div class="title">Honours Bachelor of Commerce</div>
+        <ul>
+          <li>Coursework: Corporate Finance, Macroeconomics, Canadian Taxation, Securities Analysis</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <dl class="skills">
+      <dt>Technical</dt><dd>Excel, PowerPoint, Word, Bloomberg Terminal, SQL, R, Python (basic), AI tools (Claude, ChatGPT)</dd>
+      <dt>Certifications</dt><dd>Passed CFA Level I; CFA Level II candidate; Bloomberg Market Concepts (BMC)</dd>
+      <dt>Languages</dt><dd>English and Mandarin (fluent), Spanish (beginner)</dd>
+      <dt>Activities</dt><dd>DeGroote Graduate Finance Club, Raymond James Mentorship Program, Community Volunteer Income Tax Program</dd>
+    </dl>
+  </section>
+
+  <footer>Updated November 2026</footer>
+</div>
+
+<script>
+document.getElementById('copy-email').addEventListener('click', function(){
+  var btn = this, text = document.getElementById('email').textContent;
+  function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copy email'; }, 1800); }
+  try {
+    navigator.clipboard.writeText(text).then(function(){ done('Copied'); }, function(){ selectEmail(); done('Select and copy'); });
+  } catch(e){ selectEmail(); done('Select and copy'); }
+  function selectEmail(){
+    try { var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch(e){}
+  }
+});
+</script>
+</body>
+</html>
