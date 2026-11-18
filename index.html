@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Eileen Kuo</title>
+<meta name="description" content="Eileen Kuo — Master of Finance candidate at McMaster University and CFA Level II candidate. Experience, research reports, and projects.">
+<script>
+  // Apply the saved theme before the page paints, so there is no flash.
+  try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}
+</script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,30 +17,45 @@
 /* Layout: a single reading column, like a well-set term sheet; dates sit in a right-aligned ledger column. */
 :root{
   --bg:#f6f7f8; --surface:#ffffff; --fg:#17202a; --muted:#5b6672; --line:#dde2e7;
-  --accent:#1f5f63; --accent-soft:#e3eeee;
+  --accent:#1f5f63; --accent-soft:#e3eeee; --nav-bg:rgba(246,247,248,.88);
   --display:"Fraunces", Georgia, "Times New Roman", serif;
   --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
-    --accent:#7cc3c4; --accent-soft:#1d2e31; color-scheme:dark;
+    --accent:#7cc3c4; --accent-soft:#1d2e31; --nav-bg:rgba(17,22,27,.88); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
-  --accent:#7cc3c4; --accent-soft:#1d2e31; color-scheme:dark;
+  --accent:#7cc3c4; --accent-soft:#1d2e31; --nav-bg:rgba(17,22,27,.88); color-scheme:dark;
 }
 *{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){ html{scroll-behavior:auto} }
 body{
-  background:var(--bg); color:var(--fg); font-family:var(--body);
+  margin:0; background:var(--bg); color:var(--fg); font-family:var(--body);
   font-size:15.5px; line-height:1.6;
-  padding-left:max(16px, env(safe-area-inset-left, 0px));
-  padding-right:max(16px, env(safe-area-inset-right, 0px));
-  padding-block:48px 64px;
 }
-.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:40px}
+.pad{padding-left:max(16px, env(safe-area-inset-left, 0px)); padding-right:max(16px, env(safe-area-inset-right, 0px))}
+
+/* Sticky navigation */
+.nav{position:sticky; top:0; z-index:20; background:var(--nav-bg); backdrop-filter:saturate(1.4) blur(8px); -webkit-backdrop-filter:saturate(1.4) blur(8px); border-bottom:1px solid var(--line)}
+.nav-inner{max-width:760px; margin:0 auto; display:flex; align-items:center; gap:12px; height:54px}
+.brand{font-family:var(--display); font-weight:600; font-size:1.05rem; color:var(--fg); text-decoration:none; white-space:nowrap}
+.nav-links{display:flex; gap:2px; margin-left:auto; overflow-x:auto; scrollbar-width:none; min-width:0}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--muted); text-decoration:none; font-size:.86rem; font-weight:500; padding:6px 9px; border-radius:6px; white-space:nowrap}
+.nav-links a:hover{color:var(--fg); background:var(--accent-soft)}
+.nav-links a.active{color:var(--accent); background:var(--accent-soft)}
+.theme-btn{flex:none; width:34px; height:34px; border-radius:8px; border:1px solid var(--line); background:var(--surface); color:var(--fg); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; font-size:.9rem}
+.theme-btn:hover{border-color:var(--accent); color:var(--accent)}
+.theme-btn:focus-visible, .nav-links a:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+
+.wrap{max-width:760px; margin:0 auto; display:flex; flex-direction:column; gap:44px; padding-block:44px 64px}
 header{display:flex; flex-direction:column; gap:14px; padding-bottom:28px; border-bottom:1px solid var(--line)}
 h1{font-family:var(--display); font-weight:600; font-size:clamp(2.2rem, 6vw, 3.1rem); line-height:1.05; margin:0; letter-spacing:-0.01em; text-wrap:balance}
 .role{margin:0; color:var(--muted); font-size:1.02rem; max-width:62ch}
@@ -50,16 +70,15 @@ h1{font-family:var(--display); font-weight:600; font-size:clamp(2.2rem, 6vw, 3.1
 .btn.primary{background:var(--accent); border-color:var(--accent); color:var(--bg)}
 .btn.primary:hover{color:var(--bg); filter:brightness(1.08)}
 .btn:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
-.contact{font-family:var(--mono); font-size:.85rem; color:var(--muted); display:flex; flex-wrap:wrap; gap:6px 18px}
-.contact span{user-select:all}
-section{display:flex; flex-direction:column; gap:18px}
+section{display:flex; flex-direction:column; gap:18px; scroll-margin-top:72px}
 h2{
   font-family:var(--mono); font-weight:500; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase;
   color:var(--accent); margin:0; display:flex; align-items:center; gap:12px;
 }
 h2::after{content:""; flex:1; height:1px; background:var(--line)}
 p{margin:0}
-.summary{max-width:65ch}
+.about{display:flex; flex-direction:column; gap:12px; max-width:65ch}
+.about p:first-child{font-size:1.06rem}
 .entry{display:grid; grid-template-columns:1fr auto; gap:2px 16px}
 .entry > *{min-width:0}
 .org{font-weight:600}
@@ -69,6 +88,22 @@ p{margin:0}
 .entry ul{grid-column:1 / -1; margin:6px 0 0; padding-left:18px; display:flex; flex-direction:column; gap:4px}
 .entry li::marker{color:var(--accent)}
 .list{display:flex; flex-direction:column; gap:22px}
+
+/* Research reports */
+.reports{display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:14px}
+.report{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:18px; display:flex; flex-direction:column; gap:10px; min-width:0}
+.report-head{display:flex; justify-content:space-between; align-items:flex-start; gap:10px}
+.report h3{margin:0; font-size:1.05rem; font-weight:600; line-height:1.3}
+.ticker{font-family:var(--mono); font-size:.8rem; color:var(--muted)}
+.rating{font-family:var(--mono); font-size:.72rem; font-weight:500; letter-spacing:.08em; padding:3px 9px; border-radius:6px; white-space:nowrap; border:1px solid currentColor}
+.rating.hold{color:var(--muted)}
+.rating.buy{color:var(--accent)}
+.facts{display:flex; flex-wrap:wrap; gap:4px 16px; font-family:var(--mono); font-size:.8rem; color:var(--muted); font-variant-numeric:tabular-nums}
+.facts b{color:var(--fg); font-weight:500}
+.report p{color:var(--muted); font-size:.93rem}
+.report .btn{align-self:flex-start; margin-top:auto; font-size:.86rem; padding:7px 12px}
+.note{font-size:.82rem; color:var(--muted)}
+
 .projects{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:14px}
 .proj{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:flex; flex-direction:column; gap:8px; min-width:0}
 .proj h3{margin:0; font-size:1rem; font-weight:600}
@@ -76,47 +111,72 @@ p{margin:0}
 .proj p{color:var(--muted); font-size:.93rem}
 .proj a{color:var(--accent); font-size:.88rem; font-weight:500; text-decoration:none; margin-top:auto}
 .proj a:hover{text-decoration:underline}
-.skills{display:grid; grid-template-columns:max-content 1fr; gap:8px 20px}
+.skills{display:grid; grid-template-columns:max-content 1fr; gap:8px 20px; margin:0}
 .skills dt{font-weight:600}
 .skills dd{margin:0; color:var(--muted); min-width:0}
+
+/* Contact */
+.contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px}
+.contact-item{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:flex; align-items:center; gap:12px; min-width:0; color:var(--fg); text-decoration:none}
+a.contact-item:hover{border-color:var(--accent)}
+.contact-item i{color:var(--accent); width:18px; text-align:center}
+.contact-item .lbl{font-size:.75rem; color:var(--muted); font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase}
+.contact-item .val{font-weight:500; overflow-wrap:anywhere}
+.copy{margin-left:auto; flex:none; font-size:.8rem; padding:5px 10px}
 footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); padding-top:18px}
 @media (max-width:560px){
-  body{padding-block:32px 48px}
+  .wrap{padding-block:32px 48px}
   .entry{grid-template-columns:1fr}
   .when{text-align:left}
   .skills{grid-template-columns:1fr; gap:2px}
   .skills dd{margin-bottom:10px}
+  .brand{display:none}
+  .nav-links{margin-left:0}
 }
 @media (prefers-reduced-motion:no-preference){
-  .btn{transition:border-color .15s, color .15s, filter .15s}
+  .btn, .nav-links a, .theme-btn{transition:border-color .15s, color .15s, background-color .15s, filter .15s}
 }
 </style>
 </head>
 <body>
 
-<div class="wrap">
+<nav class="nav pad" aria-label="Sections">
+  <div class="nav-inner">
+    <a class="brand" href="#top">Eileen Kuo</a>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#experience">Experience</a>
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <button class="theme-btn" id="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle light/dark mode"><i class="fa-solid fa-moon" aria-hidden="true"></i></button>
+  </div>
+</nav>
+
+<div class="wrap pad" id="top">
   <header>
     <h1>Eileen Kuo</h1>
     <p class="role"><strong>Master of Finance candidate</strong> at McMaster's DeGroote School of Business (Dec 2026) and <strong>CFA Level II candidate</strong>, interested in helping companies make strategic and financing decisions.</p>
     <div class="links">
       <a class="btn primary" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener"><i class="fa-brands fa-linkedin" aria-hidden="true"></i> LinkedIn</a>
       <a class="btn" href="https://github.com/ekuo29" target="_blank" rel="noopener"><i class="fa-brands fa-github" aria-hidden="true"></i> GitHub</a>
-      <button class="btn" id="copy-email" type="button">Copy email</button>
-    </div>
-    <div class="contact">
-      <span id="email">kuoi1@mcmaster.ca</span>
-      <span>437-988-3679</span>
-      <span>linkedin.com/in/eileen-kuo</span>
-      <span>github.com/ekuo29</span>
+      <a class="btn" href="#research"><i class="fa-solid fa-file-lines" aria-hidden="true"></i> Research</a>
     </div>
   </header>
 
-  <section>
-    <h2>Summary</h2>
-    <p class="summary">Master of Finance student and CFA Level II candidate with experience in financial modeling, valuation, and due diligence. I build DCF, comparable company, and three-statement models, research industry dynamics, and use AI tools to work more efficiently and automate analysis.</p>
+  <section id="about">
+    <h2>About</h2>
+    <div class="about">
+      <p>I grew up around small, founder-owned businesses across different industries, and seeing how much owners put into building a company is what first drew me to finance.</p>
+      <p>Today I'm completing my Master of Finance at McMaster and preparing for CFA Level II. I enjoy work that combines a close reading of a company's numbers with an understanding of how the business actually runs: building valuation models, writing research, and turning analysis into a clear recommendation.</p>
+      <p>I'm fluent in English and Mandarin, and I'm looking for full-time roles in investment banking, equity research, and corporate finance starting in 2027.</p>
+    </div>
   </section>
 
-  <section>
+  <section id="experience">
     <h2>Experience</h2>
     <div class="list">
       <div class="entry">
@@ -141,6 +201,7 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <div class="title">Investment Analyst Intern</div>
         <ul>
           <li>Conducted due diligence, equity research, and asset-mix analysis to support investment recommendations aligned with client objectives.</li>
+          <li>Performed financial statement analysis and built DCF and three-statement projection models, using scenario and sensitivity analyses to evaluate intrinsic value.</li>
           <li>Prepared investment summaries, performance reports, and dashboards for weekly strategy meetings.</li>
         </ul>
       </div>
@@ -156,14 +217,39 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </div>
   </section>
 
-  <section>
+  <section id="research">
+    <h2>Research</h2>
+    <div class="reports">
+      <article class="report">
+        <div class="report-head">
+          <div>
+            <h3>nVent Electric</h3>
+            <div class="ticker">NYSE: NVT · Initiation · Nov 2026</div>
+          </div>
+          <span class="rating hold">HOLD</span>
+        </div>
+        <div class="facts"><span>Target <b>US$120</b></span><span>Price <b>US$109.19</b></span><span>Upside <b>+10%</b></span></div>
+        <p>A data center and grid-infrastructure winner whose AI rerating is largely priced in. Valued with a two-method DCF, forward P/E, and EV/EBITDA against Eaton, Hubbell, Vertiv, and Amphenol.</p>
+        <a class="btn" href="NVT_Equity_Research_Eileen_Kuo.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Read report (PDF)</a>
+      </article>
+      <article class="report">
+        <div class="report-head">
+          <div>
+            <h3>Chemtrade Logistics</h3>
+            <div class="ticker">TSX: CHE.UN · Initiation · Oct 2025</div>
+          </div>
+          <span class="rating buy">BUY</span>
+        </div>
+        <div class="facts"><span>Methods <b>DCF, comps, DDM</b></span></div>
+        <p>A Canadian industrial chemicals producer covered with a five-year FCFF DCF, a five-peer trading comps analysis, and one- and two-stage dividend discount models.</p>
+        <span class="note">Full report available on request.</span>
+      </article>
+    </div>
+  </section>
+
+  <section id="projects">
     <h2>Projects</h2>
     <div class="projects">
-      <div class="proj">
-        <span class="tag">Equity research</span>
-        <h3>Chemtrade Logistics (TSX: CHE.UN)</h3>
-        <p>Initiated coverage with a Buy rating, using DCF, comparable company, and dividend discount valuation supported by industry research.</p>
-      </div>
       <div class="proj">
         <span class="tag">LBO · in progress</span>
         <h3>Cars.com buyout model</h3>
@@ -191,10 +277,16 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <p>Analyzed 540 fund observations to identify drivers of manager excess returns and wrote a hiring recommendation.</p>
         <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
       </div>
+      <div class="proj">
+        <span class="tag">Markets · Python</span>
+        <h3>NVIDIA volatility forecasting</h3>
+        <p>Built RNN models to forecast NVIDIA's daily realized volatility (2018–2025), testing VIX and moving-average features.</p>
+        <a href="https://github.com/ekuo29" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
     </div>
   </section>
 
-  <section>
+  <section id="education">
     <h2>Education</h2>
     <div class="list">
       <div class="entry">
@@ -210,13 +302,13 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <div class="when">Sep 2020 – Jun 2024</div>
         <div class="title">Honours Bachelor of Commerce</div>
         <ul>
-          <li>Coursework: Corporate Finance, Intermediate Accounting, Macroeconomics, Canadian Taxation, Securities Analysis</li>
+          <li>Coursework: Corporate Finance, Macroeconomics, Canadian Taxation, Securities Analysis</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <section>
+  <section id="skills">
     <h2>Skills</h2>
     <dl class="skills">
       <dt>Technical</dt><dd>Excel, PowerPoint, Word, Bloomberg Terminal, SQL, R, Python (basic), AI tools (Claude, ChatGPT)</dd>
@@ -227,20 +319,80 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     </dl>
   </section>
 
+  <section id="contact">
+    <h2>Contact</h2>
+    <div class="contact-grid">
+      <div class="contact-item">
+        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+        <div><div class="lbl">Email</div><div class="val" id="email">kuoi1@mcmaster.ca</div></div>
+        <button class="btn copy" type="button" data-copy="email">Copy</button>
+      </div>
+      <div class="contact-item">
+        <i class="fa-solid fa-phone" aria-hidden="true"></i>
+        <div><div class="lbl">Phone</div><div class="val" id="phone">437-988-3679</div></div>
+        <button class="btn copy" type="button" data-copy="phone">Copy</button>
+      </div>
+      <a class="contact-item" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener">
+        <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
+        <div><div class="lbl">LinkedIn</div><div class="val">linkedin.com/in/eileen-kuo</div></div>
+      </a>
+      <a class="contact-item" href="https://github.com/ekuo29" target="_blank" rel="noopener">
+        <i class="fa-brands fa-github" aria-hidden="true"></i>
+        <div><div class="lbl">GitHub</div><div class="val">github.com/ekuo29</div></div>
+      </a>
+    </div>
+  </section>
+
   <footer>Updated November 2026</footer>
 </div>
 
 <script>
-document.getElementById('copy-email').addEventListener('click', function(){
-  var btn = this, text = document.getElementById('email').textContent;
-  function done(msg){ btn.textContent = msg; setTimeout(function(){ btn.textContent = 'Copy email'; }, 1800); }
-  try {
-    navigator.clipboard.writeText(text).then(function(){ done('Copied'); }, function(){ selectEmail(); done('Select and copy'); });
-  } catch(e){ selectEmail(); done('Select and copy'); }
-  function selectEmail(){
-    try { var r = document.createRange(); r.selectNodeContents(document.getElementById('email')); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch(e){}
+(function(){
+  // Light/dark toggle
+  var btn = document.getElementById('theme-toggle'), root = document.documentElement;
+  function current(){
+    var t = root.getAttribute('data-theme');
+    if (t) return t;
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
   }
-});
+  function paint(){
+    var dark = current() === 'dark';
+    btn.innerHTML = dark ? '<i class="fa-solid fa-sun" aria-hidden="true"></i>' : '<i class="fa-solid fa-moon" aria-hidden="true"></i>';
+    btn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  }
+  btn.addEventListener('click', function(){
+    var next = current() === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    try { localStorage.setItem('theme', next); } catch (e) {}
+    paint();
+  });
+  paint();
+
+  // Copy buttons
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var el = document.getElementById(b.getAttribute('data-copy'));
+      function done(msg){ b.textContent = msg; setTimeout(function(){ b.textContent = 'Copy'; }, 1600); }
+      function select(){ try { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); } catch (e) {} }
+      try {
+        navigator.clipboard.writeText(el.textContent).then(function(){ done('Copied'); }, function(){ select(); done('Selected'); });
+      } catch (e) { select(); done('Selected'); }
+    });
+  });
+
+  // Highlight the nav link for the section in view
+  var links = Array.prototype.slice.call(document.querySelectorAll('.nav-links a'));
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if (en.isIntersecting) {
+          links.forEach(function(a){ a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id); });
+        }
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    document.querySelectorAll('section[id]').forEach(function(sec){ io.observe(sec); });
+  }
+})();
 </script>
 </body>
 </html>
