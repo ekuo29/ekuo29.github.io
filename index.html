@@ -116,13 +116,16 @@ p{margin:0}
 .skills dd{margin:0; color:var(--muted); min-width:0}
 
 /* Contact */
-.contact-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:12px}
-.contact-item{background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; display:flex; align-items:center; gap:12px; min-width:0; color:var(--fg); text-decoration:none}
-a.contact-item:hover{border-color:var(--accent)}
-.contact-item i{color:var(--accent); width:18px; text-align:center}
-.contact-item .lbl{font-size:.75rem; color:var(--muted); font-family:var(--mono); letter-spacing:.06em; text-transform:uppercase}
-.contact-item .val{font-weight:500; overflow-wrap:anywhere}
-.copy{margin-left:auto; flex:none; font-size:.8rem; padding:5px 10px}
+.contact-intro{color:var(--muted); max-width:60ch}
+.contact-list{background:var(--surface); border:1px solid var(--line); border-radius:10px; overflow:hidden}
+.contact-row{display:grid; grid-template-columns:22px 92px 1fr auto; align-items:center; gap:14px; padding:13px 18px; border-top:1px solid var(--line); color:var(--fg); text-decoration:none}
+.contact-row:first-child{border-top:0}
+a.contact-row:hover{background:var(--accent-soft)}
+.contact-row i{color:var(--accent); text-align:center}
+.contact-row .lbl{font-size:.74rem; color:var(--muted); font-family:var(--mono); letter-spacing:.08em; text-transform:uppercase}
+.contact-row .val{font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0}
+.contact-row .go{color:var(--muted); font-size:.8rem}
+.copy{font-size:.8rem; padding:5px 10px}
 footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); padding-top:18px}
 @media (max-width:560px){
   .wrap{padding-block:32px 48px}
@@ -131,6 +134,8 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
   .skills{grid-template-columns:1fr; gap:2px}
   .skills dd{margin-bottom:10px}
   .brand{display:none}
+  .contact-row{grid-template-columns:20px 1fr auto; gap:12px}
+  .contact-row .lbl{display:none}
   .nav-links{margin-left:0}
 }
 @media (prefers-reduced-motion:no-preference){
@@ -172,7 +177,7 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
     <div class="about">
       <p>I grew up around small, founder-owned businesses across different industries, and seeing how much owners put into building a company is what first drew me to finance.</p>
       <p>Today I'm completing my Master of Finance at McMaster and preparing for CFA Level II. I enjoy work that combines a close reading of a company's numbers with an understanding of how the business actually runs: building valuation models, writing research, and turning analysis into a clear recommendation.</p>
-      <p>I'm fluent in English and Mandarin, and I'm looking for full-time roles in investment banking, equity research, and corporate finance starting in 2027.</p>
+      <p>I'm fluent in English and Mandarin, and I've been learning Spanish for the past two years as I work toward picking it up.</p>
     </div>
   </section>
 
@@ -192,7 +197,7 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <div class="when">Sep 2026 – Present</div>
         <div class="title">Financial Modeling Intern</div>
         <ul>
-          <li>Built driver-based models and a comparable-company valuation to assess a pre-IPO AI company, presenting findings to senior management.</li>
+          <li>Built driver-based models and a comparable-company valuation for a pre-IPO AI company, presenting findings to senior management.</li>
         </ul>
       </div>
       <div class="entry">
@@ -201,7 +206,6 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
         <div class="title">Investment Analyst Intern</div>
         <ul>
           <li>Conducted due diligence, equity research, and asset-mix analysis to support investment recommendations aligned with client objectives.</li>
-          <li>Performed financial statement analysis and built DCF and three-statement projection models, using scenario and sensitivity analyses to evaluate intrinsic value.</li>
           <li>Prepared investment summaries, performance reports, and dashboards for weekly strategy meetings.</li>
         </ul>
       </div>
@@ -240,9 +244,9 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
           </div>
           <span class="rating buy">BUY</span>
         </div>
-        <div class="facts"><span>Methods <b>DCF, comps, DDM</b></span></div>
-        <p>A Canadian industrial chemicals producer covered with a five-year FCFF DCF, a five-peer trading comps analysis, and one- and two-stage dividend discount models.</p>
-        <span class="note">Full report available on request.</span>
+        <div class="facts"><span>Target <b>C$22.66</b></span><span>Price <b>C$12.89</b></span><span>Upside <b>+75.8%</b></span></div>
+        <p>A Canadian industrial chemicals producer serving water treatment, mining, refining, and semiconductor markets. Valued with a DCF (70% weight), comparable companies (20%), and a two-stage DDM (10%).</p>
+        <a class="btn" href="Chemtrade_Equity_Research_Eileen_Kuo.pdf" target="_blank" rel="noopener"><i class="fa-solid fa-file-pdf" aria-hidden="true"></i> Read report (PDF)</a>
       </article>
     </div>
   </section>
@@ -321,24 +325,31 @@ footer{color:var(--muted); font-size:.82rem; border-top:1px solid var(--line); p
 
   <section id="contact">
     <h2>Contact</h2>
-    <div class="contact-grid">
-      <div class="contact-item">
+    <p class="contact-intro">I'm always happy to connect about finance, research, or opportunities. Email is the best way to reach me.</p>
+    <div class="contact-list">
+      <div class="contact-row">
         <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-        <div><div class="lbl">Email</div><div class="val" id="email">kuoi1@mcmaster.ca</div></div>
+        <span class="lbl">Email</span>
+        <span class="val" id="email">kuoi1@mcmaster.ca</span>
         <button class="btn copy" type="button" data-copy="email">Copy</button>
       </div>
-      <div class="contact-item">
+      <div class="contact-row">
         <i class="fa-solid fa-phone" aria-hidden="true"></i>
-        <div><div class="lbl">Phone</div><div class="val" id="phone">437-988-3679</div></div>
+        <span class="lbl">Phone</span>
+        <span class="val" id="phone">437-988-3679</span>
         <button class="btn copy" type="button" data-copy="phone">Copy</button>
       </div>
-      <a class="contact-item" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener">
+      <a class="contact-row" href="https://www.linkedin.com/in/eileen-kuo" target="_blank" rel="noopener">
         <i class="fa-brands fa-linkedin" aria-hidden="true"></i>
-        <div><div class="lbl">LinkedIn</div><div class="val">linkedin.com/in/eileen-kuo</div></div>
+        <span class="lbl">LinkedIn</span>
+        <span class="val">linkedin.com/in/eileen-kuo</span>
+        <i class="fa-solid fa-arrow-up-right-from-square go" aria-hidden="true"></i>
       </a>
-      <a class="contact-item" href="https://github.com/ekuo29" target="_blank" rel="noopener">
+      <a class="contact-row" href="https://github.com/ekuo29" target="_blank" rel="noopener">
         <i class="fa-brands fa-github" aria-hidden="true"></i>
-        <div><div class="lbl">GitHub</div><div class="val">github.com/ekuo29</div></div>
+        <span class="lbl">GitHub</span>
+        <span class="val">github.com/ekuo29</span>
+        <i class="fa-solid fa-arrow-up-right-from-square go" aria-hidden="true"></i>
       </a>
     </div>
   </section>
