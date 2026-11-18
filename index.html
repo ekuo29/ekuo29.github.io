@@ -16,8 +16,8 @@
 <style>
 /* Layout: a single reading column, like a well-set term sheet; dates sit in a right-aligned ledger column. */
 :root{
-  --bg:#f6f7f8; --surface:#ffffff; --fg:#17202a; --muted:#5b6672; --line:#dde2e7;
-  --accent:#1f5f63; --accent-soft:#e3eeee; --nav-bg:rgba(246,247,248,.88);
+  --bg:#f8f6f5; --surface:#ffffff; --fg:#1f1a1c; --muted:#665b5e; --line:#e6dfdf;
+  --accent:#7a1f35; --accent-soft:#f5e7ea; --nav-bg:rgba(248,246,245,.88);
   --display:"Fraunces", Georgia, "Times New Roman", serif;
   --body:"Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
@@ -25,13 +25,13 @@
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
-    --accent:#7cc3c4; --accent-soft:#1d2e31; --nav-bg:rgba(17,22,27,.88); color-scheme:dark;
+    --bg:#161214; --surface:#1f191b; --fg:#efe9ea; --muted:#ab9fa2; --line:#352b2e;
+    --accent:#e39aab; --accent-soft:#3a1f27; --nav-bg:rgba(22,18,20,.88); color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#11161b; --surface:#171e25; --fg:#e7ecf0; --muted:#9aa6b2; --line:#2a333c;
-  --accent:#7cc3c4; --accent-soft:#1d2e31; --nav-bg:rgba(17,22,27,.88); color-scheme:dark;
+  --bg:#161214; --surface:#1f191b; --fg:#efe9ea; --muted:#ab9fa2; --line:#352b2e;
+  --accent:#e39aab; --accent-soft:#3a1f27; --nav-bg:rgba(22,18,20,.88); color-scheme:dark;
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
